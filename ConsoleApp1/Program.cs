@@ -14,35 +14,36 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            string fileName = @"C:\Users\leoge\RiderProjects\ConsoleApp1\ConsoleApp1\TWPL-5-BW-02-620-A_BFD.abs";
+            string fileName = "../../../TWPL-5-BW-02-620-A_BFD.abs";
             
             var lines = File.ReadLines(fileName);
             Parallel.ForEach(lines, line =>
             {
-                if (validateChecksum(line))
+                if (!validateChecksum(line))
                 {
                     Console.WriteLine("Help Checksum not Matching");
                     return; //Help
                 };
 
-                string[] fields = line.Split('@');
+                var obergruppe = line[..4];
                 
-                switch (fields[0])
+                switch (obergruppe)
                 {
                     case "BF2D":
-                        HandleBF2D(fields.Skip(1).ToArray());
+                        BF2DSentence bf2DSentence = new(line);
+                        Console.WriteLine(bf2DSentence.ToJson());
                         break;
                     
                     case "BF3D": 
-                        HandleBF3D(fields.Skip(1).ToArray());
+                        //HandleBF3D(fields.Skip(1).ToArray());
                         break;
                     
                     case "BFWE":
-                        HandleBFWE(fields.Skip(1).ToArray());
+                        //HandleBFWE(fields.Skip(1).ToArray());
                         break;
                     
                     case "BFMA":
-                        HandleBFMA(fields.Skip(1).ToArray());
+                        //HandleBFMA(fields.Skip(1).ToArray());
                         break;
                 }
             });
@@ -50,42 +51,34 @@ namespace ConsoleApp1
 
         private static bool validateChecksum(string line)
         {
-            int iSum = 0;
+            int characterSum = 0;
             // get Checksum from Sentence
             string[] fields = line.Split("@");
 
+            //determine given Checksum
+            string givenChecksum = fields[^2].Substring(1);
             
+            //remove given Checksum from Sentence
+            string sentenceWithoutChecksum = line.Substring(0, line.Length - 3);
 
-            foreach (char c in line)
+            foreach (char c in sentenceWithoutChecksum)
             {
-                iSum += (int)c;
+                characterSum += c;
             }
 
-            return false;
-        }
+            if (line.Contains("BFMA") && !line.Contains("@a"))
+            {
+                characterSum += '@' + 'a';
+            }
 
-        private static void HandleBFWE(string[] fields)
-        {
-            throw new NotImplementedException();
-        }
+            if (!line.Contains("@G"))
+            {
+                characterSum += '@' + 'G' + 'l' + '@' + 'r' + '@' + 'w';
+            }
 
-        private static void HandleBF3D(string[] fields)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static void HandleBFMA(string[] fields)
-        {
-            Console.WriteLine("Matte");
-        }
-
-        private static void HandleBF2D(string[] fields)
-        {
-            BF2DHeader header = new (line);
-
+            int calculatedChecksum = 96 - characterSum % 32;
             
-            
-            Console.WriteLine(JsonConvert.SerializeObject(header, Formatting.Indented));
+            return int.Parse(givenChecksum) == calculatedChecksum;
         }
     }
 }

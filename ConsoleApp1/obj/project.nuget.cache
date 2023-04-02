@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "kA74ef9x5wbUMGlaNSkedQiZ0TNhVAkQ2cnCwGF2/PJT+1VO7IrZaSCPC8qFz0xHackdNuWDAOs5UOCP88Kwjw==",
+  "dgSpecHash": "6bw0lqOBT/l9CCt2V1HYDNZkDInKRLEbQwgFat7j2WMIwoytqCS+iExEwCnAl79/Jqx+ImrGI4v+XAOVklt2rw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\leoge\\RiderProjects\\ConsoleApp1\\ConsoleApp1\\ConsoleApp1.csproj",
+  "projectFilePath": "C:\\Users\\l.georg\\RiderProjects\\ABS-Parser\\ConsoleApp1\\ConsoleApp1.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\leoge\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\l.georg\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],
   "logs": []
 }
