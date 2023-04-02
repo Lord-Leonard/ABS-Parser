@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp1
 {
-    public class Sentence
+    public class BF2DSentence
     {
         public string? Projektnummer;
         public string Plannummer;
@@ -12,9 +12,11 @@
         public string Durchmesser; // Einheit: mm
         public string Stahlgüte;
         public string Biegerollendurchmesser; // Einheit: mm
-        public string Mattentyp;
-        public string Breite; // Einheit: mm
-        public string Prüfziffer;
 
+        public string Lage;
+        public string Delta;
+        public string Staffelgruppe;
+        
+        public string Prüfziffer;
     }
 }
